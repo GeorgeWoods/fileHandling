@@ -1,0 +1,88 @@
+import java.util.Scanner;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+
+public class task5
+{
+    public static void main(String[] args) throws IOException
+    {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("1. Search for a term");
+        System.out.println("2. Search for a keyword in the descriptions");
+        System.out.println("3. End");
+        System.out.println("Key in choice");
+        int choice = input.nextInt();
+
+        if (choice == 1)
+        {
+            System.out.println("Enter your term");
+            input.nextLine();
+            String searchItem = input.nextLine();
+            SearchByTerm(searchItem);
+        }
+        else if (choice == 2)
+        {
+            System.out.println("Enter a description");
+            input.nextLine();
+            String searchItem = input.nextLine();
+            SearchDescriptionForKeyword(searchItem);
+        }
+        else
+        {
+            System.out.println("Bye");
+        }
+    }
+
+    public static void SearchByTerm(String searchItem) throws IOException
+    {
+        FileReader fr = new FileReader("U:\\Desktop_2k\\keywords.txt");
+        BufferedReader br = new BufferedReader(fr);
+
+        String line;
+        boolean found = false;
+
+        while((line = br.readLine()) != null)
+        {
+            if (searchItem.equals(line))
+            {
+                System.out.println(line);
+                line = br.readLine();
+                System.out.println(line);
+                found = true;
+                break;
+            }
+        }
+        if (found == false)
+        {
+            System.out.println("ITEM NOT FOUND");
+        }
+    }
+
+    public static void SearchDescriptionForKeyword(String searchItem) throws IOException
+    {
+        FileReader fr = new FileReader("U:\\Desktop_2k\\keywords.txt");
+        BufferedReader br = new BufferedReader(fr);
+
+        String line1;
+        boolean found = false;
+
+        String line2;
+        while((line1 = br.readLine()) != null)
+        {
+            line2 = br.readLine();
+            if (line2.contains(searchItem))
+            {
+                System.out.println(line1);
+                System.out.println(line2);
+                found = true;
+            }
+        }
+        if (found == false)
+        {
+            System.out.println("NO DESCRIPTIONS FOUND");
+        }
+    }
+}
